@@ -1,0 +1,15 @@
+# Welcome to Serverless!
+service: fastapi-serverless
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: python3.11
+  region: ap-southeast-1
+
+functions:
+  app:
+    handler: app.main
+    events:
+      - httpApi: '*'
