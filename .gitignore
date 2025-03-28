@@ -29,8 +29,9 @@ Thumbs.db
 .serverless
 *_pycache_**
 node_modules
+venv
+.venv
 .env
 .env.*
 .ruff_cache
 pyrightconfig.json
-
