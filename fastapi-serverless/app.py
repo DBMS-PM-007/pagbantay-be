@@ -1,16 +1,15 @@
-# app.py
-import json
+from fastapi import FastAPI
+from mangum import Mangum
 
-def main(event, context):
-    body = {
-        "message": "Hello from app.py! Your function executed successfully!",
-        "input": event
-    }
+app = FastAPI()
 
-    response = {
-        "statusCode": 200,
-        "body": json.dumps(body)
-    }
+@app.get("/")
+def hello_world():
+    return {'message': 'Hello from FastAPI'}
 
-    return response
 
+@app.get("/hello/{name}")
+def hello(name: str):
+    return {"message": f'Hello from FastAPI, {name}!'}
+
+handler = Mangum(app)
