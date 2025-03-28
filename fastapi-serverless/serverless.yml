@@ -1,4 +1,3 @@
-# Welcome to Serverless!
 service: fastapi-serverless
 
 frameworkVersion: '3'
@@ -9,7 +8,16 @@ provider:
   region: ap-southeast-1
 
 functions:
-  app:
-    handler: app.main
+  api:
+    handler: app.handler
     events:
       - httpApi: '*'
+
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    dockerizePip: true   
+    useStaticCache: false 
+
