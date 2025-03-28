@@ -28,8 +28,6 @@ Thumbs.db
 .idea
 .serverless
 *_pycache_**
-venv
-.venv
 node_modules
 .env
 .env.*
