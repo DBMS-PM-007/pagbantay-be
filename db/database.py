@@ -15,4 +15,10 @@ DATABASE_URL = DATABASE_URL.replace("postgresql://", "cockroachdb://")
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine)
 
-print("Successfully Connected!")
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
