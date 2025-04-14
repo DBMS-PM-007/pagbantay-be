@@ -21,7 +21,7 @@ fileConfig(config.config_file_name)
 from models.base import Base
 target_metadata = Base.metadata
 
-from database import DATABASE_URL
+from db.database import DATABASE_URL
 config.set_main_option('sqlalchemy.url', DATABASE_URL)
 
 # other values from the config, defined by the needs of env.py,
