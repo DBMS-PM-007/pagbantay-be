@@ -1,0 +1,31 @@
+service: fastapi-serverless
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: python3.11
+  region: ap-southeast-1
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - ssm:GetParameter
+          Resource:
+            - arn:aws:ssm:ap-southeast-1:699475917025:parameter/pagbantay-be/database/url
+
+functions:
+  api:
+    handler: app.handler
+    events:
+      - httpApi: '*'
+
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    dockerizePip: true   
+    useStaticCache: false 
+
