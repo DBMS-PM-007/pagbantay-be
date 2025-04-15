@@ -147,7 +147,13 @@ You have now successfuly configured AWS CLI with IAM
     - Follow the [Docker Installation Guide](https://docs.docker.com/engine/install)
     - Ensure that Docker is running
 
-2. Deploy the backend:
+2. Set AWS Profile
+    - Use the project's AWS profile
+    ```shell
+    export AWS_PROFILE=pagbantay-user
+    ```
+    
+4. Deploy the backend:
     ```shell
     serverless deploy
     # or shorthand
