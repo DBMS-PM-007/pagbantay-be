@@ -147,5 +147,5 @@ You have now successfuly configured AWS CLI with IAM
     - Visit URL in browser and append `/docs` at the end
     - It should render correctly (see screenshot below):
 
-![Screenshot]()
+![Screenshot](https://github.com/user-attachments/assets/6848f94a-cb09-49d9-a053-4f14cd5c4ea7)
 
