@@ -23,14 +23,27 @@ Read more about [Clean Architecure](https://blog.cleancoder.com/uncle-bob/2012/0
 
 ## Creating and Activating a Virtual Environment
 
-**For Python:**
+**For Python3.11:**
+1. Install Python 3.11 if you have not yet:
+   - [Python3.11 - Windows installer (64-bit)](https://www.python.org/ftp/python/3.11.0/python-3.11.0-amd64.exe)
+   - Open downloaded file
+   - Make sure to check `Add python.exe to PATH`
+   - Click Install Now
 
-1. Create venv
+2. Verify installation
+   - Locate Python 3.11:
+   ```shell
+   where python3.11 # Windows
+   which python3.11 # Linux/Ubuntu
+   ```
+   It should output something like `Your_Path\python3.11.exe`
+   
+3. Create venv
     ```shell
-    python -m venv venv
+    python3.11 -m venv venv
     ```
 
-2. Then activate:
+4. Then activate:
     ```shell
     source venv/bin/activate   # Mac/Linux
     venv\Scripts\activate      # Windows
@@ -41,7 +54,7 @@ Read more about [Clean Architecure](https://blog.cleancoder.com/uncle-bob/2012/0
     (venv) C:\YourDirectory...
     ```
 
-    To exit the virtual environment (venv):
+5. To exit the virtual environment (venv):
     ```shell
     deactivate
     ```
