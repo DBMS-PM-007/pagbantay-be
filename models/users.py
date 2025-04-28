@@ -6,7 +6,6 @@ class UserCreate(BaseModel):
     first_name: str
     last_name: str
     is_admin: bool
-    password: str
     contact_info: str
     status: str
     email: str
