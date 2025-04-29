@@ -12,5 +12,8 @@
   "devDependencies": {
     "serverless-offline": "^14.4.0",
     "serverless-python-requirements": "^6.1.2"
+  },
+  "dependencies": {
+    "2-thenable": "^1.0.0"
   }
 }

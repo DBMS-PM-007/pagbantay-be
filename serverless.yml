@@ -26,6 +26,26 @@ plugins:
 
 custom:
   pythonRequirements:
-    dockerizePip: true   
-    useStaticCache: false 
+    dockerizePip: true
+    dockerImage: public.ecr.aws/sam/build-python3.11
+    useStaticCache: false
+    zip: true
+    preRequirementsCommand: "./.serverless/apt-get-install.sh"
 
+package:
+  exclude:
+    - .git/**
+    - .github/**
+    - tests/**
+    - README.md
+    - docs/**
+    - .gitignore
+    - .vscode/**
+    - .env
+    - node_modules/**
+    - cockroach-v23.1.11.linux-amd64/**
+    - _pycache_/**
+    - .serverless/**
+    - .venv/**
+    - local-data/**
+    - repositories/**
