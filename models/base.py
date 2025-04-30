@@ -22,6 +22,7 @@ class User(Base):
     is_admin = Column(Boolean, default=False)
     first_name = Column(String, nullable=False)
     last_name = Column(String, nullable=False)
+    password = Column(String, nullable=False)
     contact_info = Column(String, nullable=True)
     status = Column(String, nullable=True)
     email = Column(String, unique=True, nullable=False)
