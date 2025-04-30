@@ -38,33 +38,21 @@ class Notification(Base):
     message = Column(String, nullable=False)
     status = Column(String, nullable=False)
 
-# Station Model
-class Station(Base):
-    __tablename__ = "Station"
-
-    station_id = Column(Integer, primary_key=True)
-    event_id = Column(Integer, ForeignKey("Event.event_id"), nullable=False)
-    station_name = Column(String, nullable=False)
-    location = Column(String, nullable=False)
-    number_of_people_needed = Column(Integer, nullable=False)
-
-    # Relationship to Event model
-    event = relationship("Event", back_populates="stations")
-
 # Volunteer Assignment Model
 class VolunteerAssignment(Base):
     __tablename__ = "Volunteer Assignment"
 
     assignment_id = Column(Integer, primary_key=True)
+    event_id = Column(Integer, ForeignKey("Event.event_id"), nullable=False)
     user_id = Column(Integer, ForeignKey("User.user_id"), nullable=False)
-    station_id = Column(Integer, ForeignKey("Station.station_id"), nullable=False)
+    station = Column(String, nullable=False)
     shift_start_time = Column(DateTime, nullable=False)
     shift_end_time = Column(DateTime, nullable=False)
     availability_status = Column(String, nullable=False)
 
-    # Relationships to User and Station models
+    # Relationships to User and Event models
     user = relationship("User")
-    station = relationship("Station")
+    event = relationship("Event")
 
 # Event Model
 class Event(Base):
@@ -80,6 +68,6 @@ class Event(Base):
     # Relationship to AdminAccess model
     admin_access = relationship("AdminAccess")
 
-    # Relationship to Station model
-    stations = relationship("Station", back_populates="event")
+    # Relationship to Event model
+    events = relationship("Event", back_populates="event")
 
