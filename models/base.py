@@ -29,15 +29,6 @@ class User(Base):
     # Relationship to Admin Access (One-to-One)
     admin_access = relationship("AdminAccess", back_populates="user", uselist=False)
 
-# Notification Model
-class Notification(Base):
-    __tablename__ = "Notification"
-
-    notification_id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey("User.user_id"), nullable=False)
-    message = Column(String, nullable=False)
-    status = Column(String, nullable=False)
-
 # Volunteer Assignment Model
 class VolunteerAssignment(Base):
     __tablename__ = "Volunteer Assignment"
