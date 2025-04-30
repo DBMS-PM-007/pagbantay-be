@@ -58,7 +58,7 @@ class Event(Base):
 
     # Relationships
     admin_access = relationship("AdminAccess")
-    events = relationship("Event", back_populates="event")
+    availability = relationship("Availability", back_populates="event")
 
 # Availability Model
 class Availability(Base):
@@ -71,7 +71,7 @@ class Availability(Base):
     availability = Column(String, nullable=False)
 
     # Relationships
-    user = relationship("User", back_populates="availabilities")
-    event = relationship("Event", back_populates="availabilities")
+    user = relationship("User", back_populates="availability")
+    event = relationship("Event", back_populates="availability")
 
    
