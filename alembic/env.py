@@ -1,10 +1,6 @@
 from logging.config import fileConfig
 import os
 import sys
-from dotenv import load_dotenv  # Import the load_dotenv function
-
-# Load environment variables from .env file
-load_dotenv()
 
 # Add the project root directory to Python path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -25,20 +21,14 @@ fileConfig(config.config_file_name)
 from models.base import Base
 target_metadata = Base.metadata
 
-# Load DATABASE_URL from the environment
-DATABASE_URL = os.getenv('DATABASE_URL')
-
-# Make sure to check if the DATABASE_URL is loaded successfully
-if not DATABASE_URL:
-    raise ValueError("DATABASE_URL is not set in the environment variables.")
-
-# Set the sqlalchemy URL in the Alembic config
+from db.database import DATABASE_URL
 config.set_main_option('sqlalchemy.url', DATABASE_URL)
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
+
 
 def run_migrations_offline():
     """Run migrations in 'offline' mode.
