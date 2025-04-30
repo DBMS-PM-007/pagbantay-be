@@ -50,7 +50,7 @@ class VolunteerAssignment(Base):
     shift_end_time = Column(DateTime, nullable=False)
     availability_status = Column(String, nullable=False)
 
-    # Relationships to User and Event models
+    # Relationships
     user = relationship("User")
     event = relationship("Event")
 
@@ -65,9 +65,22 @@ class Event(Base):
     location = Column(String, nullable=False)
     description = Column(String, nullable=True)
 
-    # Relationship to AdminAccess model
+    # Relationships
     admin_access = relationship("AdminAccess")
-
-    # Relationship to Event model
     events = relationship("Event", back_populates="event")
 
+# Availability Model
+class Availability(Base):
+    __tablename__ = "Availability"
+
+    availability_id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey("User.user_id"), nullable=False)
+    event_id = Column(Integer, ForeignKey("Event.event_id"), nullable=False)
+    station_assignment = Column(String, nullable=False)
+    availability = Column(String, nullable=False)
+
+    # Relationships
+    user = relationship("User", back_populates="availabilities")
+    event = relationship("Event", back_populates="availabilities")
+
+   
