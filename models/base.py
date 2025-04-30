@@ -13,6 +13,7 @@ class AdminAccess(Base):
 
     # Relationship to the User model
     user = relationship("User", back_populates="admin_access")
+    event = relationship("Event", back_populates="admin_access")
 
 # User Model
 class User(Base):
@@ -28,6 +29,7 @@ class User(Base):
 
     # Relationship to Admin Access (One-to-One)
     admin_access = relationship("AdminAccess", back_populates="user", uselist=False)
+    availability = relationship("Availability", back_populates="user")
 
 # Volunteer Assignment Model
 class VolunteerAssignment(Base):
@@ -57,7 +59,7 @@ class Event(Base):
     description = Column(String, nullable=True)
 
     # Relationships
-    admin_access = relationship("AdminAccess")
+    admin_access = relationship("AdminAccess", back_populates="event")
     availability = relationship("Availability", back_populates="event")
 
 # Availability Model
