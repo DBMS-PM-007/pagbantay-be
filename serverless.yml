@@ -26,6 +26,6 @@ plugins:
 
 custom:
   pythonRequirements:
-    dockerizePip: true   
-    useStaticCache: false 
+    dockerizePip: true
+    useStaticCache: false
 
