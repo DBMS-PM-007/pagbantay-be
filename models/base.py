@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine, Column, Integer, String, Boolean, ForeignKey, DateTime
 from sqlalchemy.orm import relationship, declarative_base
 from sqlalchemy.sql import func
+import uuid
 
 Base = declarative_base()
 
@@ -8,8 +9,8 @@ Base = declarative_base()
 class AdminAccess(Base):
     __tablename__ = "Admin Access"
 
-    admin_id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey("User.user_id"), nullable=False)
+    admin_id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    user_id = Column(String, ForeignKey("User.user_id"), nullable=False)
 
     # Relationship to the User model
     user = relationship("User", back_populates="admin_access")
@@ -19,7 +20,7 @@ class AdminAccess(Base):
 class User(Base):
     __tablename__ = "User"
 
-    user_id = Column(Integer, primary_key=True)
+    user_id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
     is_admin = Column(Boolean, default=False)
     first_name = Column(String, nullable=False)
     last_name = Column(String, nullable=False)
@@ -35,9 +36,9 @@ class User(Base):
 class VolunteerAssignment(Base):
     __tablename__ = "Volunteer Assignment"
 
-    assignment_id = Column(Integer, primary_key=True)
-    event_id = Column(Integer, ForeignKey("Event.event_id"), nullable=False)
-    user_id = Column(Integer, ForeignKey("User.user_id"), nullable=False)
+    assignment_id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    event_id = Column(String, ForeignKey("Event.event_id"), nullable=False)
+    user_id = Column(String, ForeignKey("User.user_id"), nullable=False)
     station = Column(String, nullable=False)
     shift_start_time = Column(DateTime, nullable=False)
     shift_end_time = Column(DateTime, nullable=False)
@@ -51,8 +52,8 @@ class VolunteerAssignment(Base):
 class Event(Base):
     __tablename__ = "Event"
 
-    event_id = Column(Integer, primary_key=True)
-    admin_id = Column(Integer, ForeignKey("Admin Access.admin_id"), nullable=False)
+    event_id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    admin_id = Column(String, ForeignKey("Admin Access.admin_id"), nullable=False)
     event_name = Column(String, nullable=False)
     date = Column(DateTime, nullable=False)
     location = Column(String, nullable=False)
@@ -66,9 +67,9 @@ class Event(Base):
 class Availability(Base):
     __tablename__ = "Availability"
 
-    availability_id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey("User.user_id"), nullable=False)
-    event_id = Column(Integer, ForeignKey("Event.event_id"), nullable=False)
+    availability_id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    user_id = Column(String, ForeignKey("User.user_id"), nullable=False)
+    event_id = Column(String, ForeignKey("Event.event_id"), nullable=False)
     station_assignment = Column(String, nullable=False)
     availability = Column(String, nullable=False)
 
