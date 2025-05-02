@@ -8,15 +8,15 @@ class AvailabilityEnum(str, Enum):
     UNAVAILABLE = "UNAVAILABLE"
 
 class EventAvailabilityCreate(BaseModel):
-    event_id: int
-    user_id: int
+    event_id: str
+    user_id: str
     station_assignment: str
     availability: AvailabilityEnum
 
 class EventAvailabilityResponse(BaseModel):
-    availability_id: int
-    event_id: int
-    user_id: int
+    availability_id: str
+    event_id: str
+    user_id: str
     station_assignment: str
     availability: AvailabilityEnum
 
