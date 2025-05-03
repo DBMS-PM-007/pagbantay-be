@@ -2,8 +2,16 @@ from fastapi import FastAPI
 from controllers.app_controller import api_controller
 from sqlalchemy import Column, Integer, String
 from mangum import Mangum
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # --- Endpoints ---
 
