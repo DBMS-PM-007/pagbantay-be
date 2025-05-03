@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import Optional
 
 # Pydantic schemas for validation and serialization
 
@@ -7,7 +8,7 @@ class UserCreate(BaseModel):
     last_name: str
     is_admin: bool
     contact_info: str
-    status: str
+    status: Optional[str] = None
     email: str
 
 class UserOut(BaseModel):
