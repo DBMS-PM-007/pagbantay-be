@@ -1,6 +1,6 @@
-from sqlalchemy import create_engine, Column, Integer, String, Boolean, ForeignKey, DateTime
+from sqlalchemy import Column, String, Boolean, ForeignKey, DateTime
 from sqlalchemy.orm import relationship, declarative_base
-from sqlalchemy.sql import func
+import uuid
 
 Base = declarative_base()
 
@@ -8,17 +8,18 @@ Base = declarative_base()
 class AdminAccess(Base):
     __tablename__ = "Admin Access"
 
-    admin_id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey("User.user_id"), nullable=False)
+    admin_id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    user_id = Column(String, ForeignKey("User.user_id"), nullable=False)
 
     # Relationship to the User model
     user = relationship("User", back_populates="admin_access")
+    event = relationship("Event", back_populates="admin_access")
 
 # User Model
 class User(Base):
     __tablename__ = "User"
 
-    user_id = Column(Integer, primary_key=True)
+    user_id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
     is_admin = Column(Boolean, default=False)
     first_name = Column(String, nullable=False)
     last_name = Column(String, nullable=False)
@@ -28,58 +29,51 @@ class User(Base):
 
     # Relationship to Admin Access (One-to-One)
     admin_access = relationship("AdminAccess", back_populates="user", uselist=False)
-
-# Notification Model
-class Notification(Base):
-    __tablename__ = "Notification"
-
-    notification_id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey("User.user_id"), nullable=False)
-    message = Column(String, nullable=False)
-    status = Column(String, nullable=False)
-
-# Station Model
-class Station(Base):
-    __tablename__ = "Station"
-
-    station_id = Column(Integer, primary_key=True)
-    event_id = Column(Integer, ForeignKey("Event.event_id"), nullable=False)
-    station_name = Column(String, nullable=False)
-    location = Column(String, nullable=False)
-    number_of_people_needed = Column(Integer, nullable=False)
-
-    # Relationship to Event model
-    event = relationship("Event", back_populates="stations")
+    availability = relationship("Availability", back_populates="user")
 
 # Volunteer Assignment Model
 class VolunteerAssignment(Base):
     __tablename__ = "Volunteer Assignment"
 
-    assignment_id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey("User.user_id"), nullable=False)
-    station_id = Column(Integer, ForeignKey("Station.station_id"), nullable=False)
+    assignment_id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    event_id = Column(String, ForeignKey("Event.event_id"), nullable=False)
+    user_id = Column(String, ForeignKey("User.user_id"), nullable=False)
+    station = Column(String, nullable=False)
     shift_start_time = Column(DateTime, nullable=False)
     shift_end_time = Column(DateTime, nullable=False)
     availability_status = Column(String, nullable=False)
 
-    # Relationships to User and Station models
+    # Relationships
     user = relationship("User")
-    station = relationship("Station")
+    event = relationship("Event")
 
 # Event Model
 class Event(Base):
     __tablename__ = "Event"
 
-    event_id = Column(Integer, primary_key=True)
-    admin_id = Column(Integer, ForeignKey("Admin Access.admin_id"), nullable=False)
+    event_id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    admin_id = Column(String, ForeignKey("Admin Access.admin_id"), nullable=False)
     event_name = Column(String, nullable=False)
     date = Column(DateTime, nullable=False)
     location = Column(String, nullable=False)
     description = Column(String, nullable=True)
 
-    # Relationship to AdminAccess model
-    admin_access = relationship("AdminAccess")
+    # Relationships
+    admin_access = relationship("AdminAccess", back_populates="event")
+    availability = relationship("Availability", back_populates="event")
 
-    # Relationship to Station model
-    stations = relationship("Station", back_populates="event")
+# Availability Model
+class Availability(Base):
+    __tablename__ = "Availability"
 
+    availability_id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    user_id = Column(String, ForeignKey("User.user_id"), nullable=False)
+    event_id = Column(String, ForeignKey("Event.event_id"), nullable=False)
+    station_assignment = Column(String, nullable=False)
+    availability = Column(String, nullable=False)
+
+    # Relationships
+    user = relationship("User", back_populates="availability")
+    event = relationship("Event", back_populates="availability")
+
+   
