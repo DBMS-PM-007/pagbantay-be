@@ -1,6 +1,5 @@
-from sqlalchemy import create_engine, Column, Integer, String, Boolean, ForeignKey, DateTime
+from sqlalchemy import Column, String, Boolean, ForeignKey, DateTime
 from sqlalchemy.orm import relationship, declarative_base
-from sqlalchemy.sql import func
 import uuid
 
 Base = declarative_base()

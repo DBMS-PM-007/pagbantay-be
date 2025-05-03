@@ -1,7 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from utils.utils import Utils
-import os
 
 DATABASE_URL = Utils.get_url("/pagbantay-be/database/url")
 
