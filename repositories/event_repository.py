@@ -6,7 +6,7 @@ class EventRepository:
 
     def create_event(self, event_data):
         event = Event(
-            admin_id=event_data.admin_id,   # <-- ADD THIS
+            admin_id=event_data.admin_id,
             event_name=event_data.event_name,
             date=event_data.date,
             location=event_data.location,
