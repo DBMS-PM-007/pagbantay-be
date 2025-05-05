@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from pydantic import ConfigDict
 from datetime import date
+from uuid import UUID
 
 class EventCreate(BaseModel):
     admin_id: str
