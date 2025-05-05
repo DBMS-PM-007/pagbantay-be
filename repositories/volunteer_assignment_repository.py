@@ -7,7 +7,8 @@ class VolunteerAssignmentRepository:
         self.db = db
 
     def create_assignment(self, assignment_data: AssignVolunteerRequest):
-        assignment = VolunteerAssignment(**assignment_data.dict())
+        assignment_data = assignment_data.model_dump()
+        assignment = VolunteerAssignment(**assignment_data)
         self.db.add(assignment)
         self.db.commit()
         self.db.refresh(assignment)
