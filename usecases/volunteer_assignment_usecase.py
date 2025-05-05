@@ -1,10 +1,11 @@
 from repositories.volunteer_assignment_repository import VolunteerAssignmentRepository
+from models.volunteer_assignment import AssignVolunteerRequest
 
 class VolunteerAssignmentUseCase:
     def __init__(self, db):
         self.repo = VolunteerAssignmentRepository(db)
 
-    def create_volunteer_assignment(self, assignment_data):
+    def create_volunteer_assignment(self, assignment_data: AssignVolunteerRequest):
         return self.repo.create_assignment(assignment_data)
 
     def get_volunteer_assignments(self):
