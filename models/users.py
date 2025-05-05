@@ -1,6 +1,7 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, List
 
+from models.event import EventResponse
 # Pydantic schemas for validation and serialization
 
 class UserCreate(BaseModel):
@@ -16,6 +17,7 @@ class UserOut(BaseModel):
     first_name: str
     last_name: str
     email: str
+    events_assigned: Optional[List[EventResponse]] = None
 
     class Config:
         from_attributes = True
