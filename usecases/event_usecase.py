@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from models.event import EventCreate
+from models.event import EventCreate, EventResponse
 from repositories.event_repository import EventRepository
 
 class EventUseCase:
