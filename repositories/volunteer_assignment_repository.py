@@ -20,7 +20,7 @@ class VolunteerAssignmentRepository:
     def get_all_assignments(self):
         return self.db.query(VolunteerAssignment).all()
 
-    def is_user_already_assigned(self, user_id: int, event_id: str):
+    def is_user_already_assigned(self, user_id: str, event_id: str):
         return (
             self.db.query(VolunteerAssignment)
             .filter_by(user_id=user_id, event_id=event_id)
