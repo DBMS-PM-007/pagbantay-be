@@ -3,7 +3,6 @@ from sqlalchemy.orm import Session
 from models.event import EventCreate, EventResponse
 from usecases.event_usecase import EventUseCase
 from db.database import get_db
-from fastapi import HTTPException 
 
 event_router = APIRouter(tags=["Events"])
 
