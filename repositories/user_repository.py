@@ -20,3 +20,6 @@ class UserRepository:
 
     def get_all_users(self):
         return self.db.query(User).all()
+
+    def get_user_by_id(self, user_id):
+        return self.db.query(User).filter_by(user_id=user_id).first()
