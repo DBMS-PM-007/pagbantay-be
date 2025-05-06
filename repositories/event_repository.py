@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from models.base import Event
 from models.event import EventCreate
+from models.event import EventUpdate
 
 class EventRepository:
     def __init__(self, db: Session):
@@ -17,5 +18,18 @@ class EventRepository:
     def get_all_events(self):
         return self.db.query(Event).all()
 
-    def get_event_by_id(self, event_id: str):
-        return self.db.query(Event).filter_by(event_id=event_id).first()
+    def get_event_by_id(self, event_id: str) -> Event | None:
+        return self.db.query(Event).filter(Event.event_id == event_id).first()
+
+    def update_event(self, event_id: str, event_data: EventUpdate) -> Event | None:
+        event = self.get_event_by_id(event_id)
+        if not event:
+            return None  
+
+        for field, value in event_data.model_dump(exclude_unset=True).items():
+            setattr(event, field, value)
+
+        self.db.commit()
+        self.db.refresh(event)
+
+        return event

@@ -1,5 +1,4 @@
-from sqlalchemy.orm import Session
-from models.event import EventCreate, EventResponse
+from models.event import EventCreate, EventResponse, EventUpdate
 from repositories.event_repository import EventRepository
 from fastapi import HTTPException
 
@@ -21,4 +20,18 @@ class EventUseCase:
         event = self.repo.get_event_by_id(event_id)
         if not event:
             raise HTTPException(status_code=404, detail="Event not found")
+        return EventResponse.model_validate(event)
+
+    def update_event(self, event_id: str, event_data: EventUpdate) -> EventResponse:
+        event = self.repo.get_event_by_id(event_id)
+        if not event:
+            raise HTTPException(status_code=404, detail="Event not found")
+
+        update_fields = event_data.model_dump(exclude_unset=True)
+        for field, value in update_fields.items():
+            setattr(event, field, value)
+
+        self.repo.db.commit()
+        self.repo.db.refresh(event)
+
         return EventResponse.model_validate(event)
