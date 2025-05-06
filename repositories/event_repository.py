@@ -16,7 +16,6 @@ class EventRepository:
 
     def get_all_events(self):
         return self.db.query(Event).all()
-    
+
     def get_event_by_id(self, event_id: str):
         return self.db.query(Event).filter_by(event_id=event_id).first()
-
