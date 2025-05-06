@@ -1,6 +1,8 @@
 from models.event import EventCreate, EventResponse, EventUpdate
 from repositories.event_repository import EventRepository
 from fastapi import HTTPException
+from sqlalchemy.orm import Session
+
 
 class EventUseCase:
     def __init__(self, db: Session):
