@@ -29,11 +29,5 @@ class EventUseCase:
         if not event:
             raise HTTPException(status_code=404, detail="Event not found")
 
-        update_fields = event_data.model_dump(exclude_unset=True)
-        for field, value in update_fields.items():
-            setattr(event, field, value)
-
-        self.repo.db.commit()
-        self.repo.db.refresh(event)
-
-        return EventResponse.model_validate(event)
+        updated_event = self.repo.update_event(event_id, event_data)
+        return EventResponse.model_validate(updated_event)

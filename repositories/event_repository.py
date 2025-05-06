@@ -24,10 +24,13 @@ class EventRepository:
     def update_event(self, event_id: str, event_data: EventUpdate) -> Event | None:
         event = self.get_event_by_id(event_id)
         if not event:
-            return None  
+            return None
 
-        for field, value in event_data.model_dump(exclude_unset=True).items():
-            setattr(event, field, value)
+        event_data_dict = event_data.model_dump(exclude_unset=True)
+
+        for field, value in event_data_dict.items():
+            if value is not None:
+                setattr(event, field, value)
 
         self.db.commit()
         self.db.refresh(event)
