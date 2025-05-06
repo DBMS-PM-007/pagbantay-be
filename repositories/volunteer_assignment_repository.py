@@ -12,10 +12,7 @@ class VolunteerAssignmentRepository:
         self.db.add(assignment)
         self.db.commit()
         self.db.refresh(assignment)
-        return {
-            "message": "Volunteer assigned successfully",
-            "assignment": assignment,
-        }
+        return assignment
 
     def get_all_assignments(self):
         return self.db.query(VolunteerAssignment).all()
