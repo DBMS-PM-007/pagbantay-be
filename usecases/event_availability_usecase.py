@@ -1,11 +1,12 @@
+from sqlalchemy.orm import Session
 from models.event_availability import EventAvailabilityCreate, EventAvailabilityResponse
 from repositories.event_availability_repository import EventAvailabilityRepository
 
 class EventAvailabilityUseCase:
-    def __init__(self, db):
+    def __init__(self, db: Session):
         self.repo = EventAvailabilityRepository(db)
 
-    def create_event_availability(self, availability_data: EventAvailabilityCreate) -> EventAvailabilityResponse:
+    def create_event_availability(self, availability_data: EventAvailabilityCreate):
         db_availability = self.repo.create_event_availability(availability_data)
 
         return EventAvailabilityResponse.model_validate(db_availability)
