@@ -8,7 +8,7 @@ class EventAvailabilityRepository:
 
     def create_event_availability(self, availability_data: EventAvailabilityCreate):
         availability_data = availability_data.model_dump()
-        event_availability = VolunteerAssignment(**availability_data)
+        event_availability = Availability(**availability_data)
         self.db.add(event_availability)
         self.db.commit()
         self.db.refresh(event_availability)
