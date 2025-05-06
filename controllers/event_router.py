@@ -16,4 +16,7 @@ def create_event(event: EventCreate, usecase: EventUseCase = Depends(get_event_u
 @event_router.get("/", response_model=list[EventResponse])
 def get_events(usecase: EventUseCase = Depends(get_event_usecase)):
     return usecase.get_all_events()
-    
+
+@event_router.get("/{event_id}", response_model=EventResponse)
+def get_event_by_id(event_id: str, usecase: EventUseCase = Depends(get_event_usecase)):
+    return usecase.get_event_by_id(event_id)
