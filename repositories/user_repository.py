@@ -29,3 +29,11 @@ class UserRepository:
             .filter_by(user_id=user_id)
             .first()
         )
+
+    def get_user_by_email(self, email: str):
+        return (
+            self.db.query(User)
+            .options(joinedload(User.assignments))
+            .filter_by(email=email)
+            .first()
+        )

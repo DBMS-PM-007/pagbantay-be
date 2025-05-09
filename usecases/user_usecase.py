@@ -12,3 +12,5 @@ class UserUseCase:
     def get_users(self):
         return self.repo.get_all_users()
 
+    def get_user_by_email(self, email: str):
+        return self.repo.get_user_by_email(email)
