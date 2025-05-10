@@ -14,3 +14,10 @@ class EventAvailabilityUseCase:
     def get_event_availability(self):
         return self.repo.get_event_availability()
 
+    def update_event_availability(self, user_id: str, event_id: str, availability_data: EventAvailabilityCreate):
+        db_availability = self.repo.update_event_availability(user_id, event_id, availability_data)
+
+        if db_availability:
+            return EventAvailabilityResponse.model_validate(db_availability)
+        return None
+
