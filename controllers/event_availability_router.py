@@ -21,3 +21,22 @@ def get_event_availabilities(
     uc = EventAvailabilityUseCase(db)
     return uc.get_event_availability()
 
+@event_availability_router.put(
+    "/{user_id}/{event_id}",
+    response_model=EventAvailabilityResponse,
+    status_code=200
+)
+def update_event_availability(
+    user_id: str,
+    event_id: str,
+    availability: EventAvailabilityCreate,
+    db: Session = Depends(get_db)
+):
+    uc = EventAvailabilityUseCase(db)
+    updated_availability = uc.update_event_availability(user_id, event_id, availability)
+
+    if updated_availability:
+        return updated_availability
+    else:
+        raise HTTPException(status_code=404, detail="Event Availability not found")
+
