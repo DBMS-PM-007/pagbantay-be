@@ -21,3 +21,9 @@ class EventAvailabilityResponse(BaseModel):
 
     model_config = ConfigDict(from_attributes=True)
 
+class EventAvailabilityUpdate(BaseModel):
+    station_assignment: str
+    availability: AvailabilityEnum
+    
+    model_config = ConfigDict(from_attributes=True) 
+

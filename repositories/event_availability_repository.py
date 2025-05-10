@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from models.event_availability import EventAvailabilityCreate
+from models.event_availability import EventAvailabilityCreate, EventAvailabilityUpdate
 from models.base import Availability
 
 class EventAvailabilityRepository:
@@ -17,7 +17,7 @@ class EventAvailabilityRepository:
     def get_event_availability(self):
         return self.db.query(Availability).all()
 
-    def update_event_availability(self, user_id: str, event_id: str, availability_data: EventAvailabilityCreate):
+    def update_event_availability(self, user_id: str, event_id: str, availability_data: EventAvailabilityUpdate):
         event_availability = self.db.query(Availability).filter_by(user_id=user_id, event_id=event_id).first()
 
         if not event_availability:

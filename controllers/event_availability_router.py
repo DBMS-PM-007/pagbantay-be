@@ -1,6 +1,6 @@
-from fastapi import APIRouter, Depends, Path
+from fastapi import APIRouter, Depends, Path, HTTPException, status
 from sqlalchemy.orm import Session
-from models.event_availability import EventAvailabilityCreate, EventAvailabilityResponse
+from models.event_availability import EventAvailabilityCreate, EventAvailabilityResponse, EventAvailabilityUpdate
 from db.database import get_db
 from usecases.event_availability_usecase import EventAvailabilityUseCase
 
@@ -23,7 +23,17 @@ def get_event_availabilities(
 
 @event_availability_router.put("/{user_id}/{event_id}", response_model=EventAvailabilityResponse)
 def update_event_availability(
+    user_id: str,
+    event_id: str,
+    availability: EventAvailabilityUpdate,
     db: Session = Depends(get_db)
 ):
     uc = EventAvailabilityUseCase(db)
-    return uc.update_event_availability()
+
+    updated = uc.update_event_availability(user_id, event_id, availability)
+    if updated is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Availability not found"
+        )
+    return updated
