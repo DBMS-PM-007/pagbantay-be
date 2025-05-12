@@ -1,6 +1,8 @@
 from enum import Enum
 from pydantic import BaseModel
 from pydantic import ConfigDict
+from models.event import EventResponse 
+from typing import Optional
 
 class AvailabilityEnum(str, Enum):
     AVAILABLE = "AVAILABLE"
@@ -15,6 +17,7 @@ class EventAvailabilityCreate(BaseModel):
 class EventAvailabilityResponse(BaseModel):
     availability_id: str
     event_id: str
+    event: Optional[EventResponse] = None
     user_id: str
     station_assignment: str
     availability: AvailabilityEnum
