@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from typing import Optional, List
 from models.volunteer_assignment import AssignVolunteerResponse 
+from models.event_availability import EventAvailabilityResponse
 
 # Pydantic schemas for validation and serialization
 
@@ -18,6 +19,7 @@ class UserOut(BaseModel):
     last_name: str
     email: str
     assignments: Optional[List[AssignVolunteerResponse]] = None
+    availability: Optional[List[EventAvailabilityResponse]] = None
 
     class Config:
         from_attributes = True
