@@ -1,8 +1,7 @@
 from pydantic import BaseModel
 from pydantic import ConfigDict
-from datetime import date
 from typing import Optional
-from datetime import datetime
+from datetime import date
 
 class EventCreate(BaseModel):
     admin_id: str
@@ -25,8 +24,7 @@ class EventUpdate(BaseModel):
     event_name: Optional[str] = None
     description: Optional[str] = None
     location: Optional[str] = None
-    start_time: Optional[datetime] = None
-    end_time: Optional[datetime] = None
+    date: Optional[date] = None
 
     model_config = ConfigDict(from_attributes=True) 
 
