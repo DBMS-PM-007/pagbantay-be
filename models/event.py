@@ -24,7 +24,7 @@ class EventUpdate(BaseModel):
     event_name: Optional[str] = None
     description: Optional[str] = None
     location: Optional[str] = None
-    date: Optional[date] = None
+    date: Optional[date]
 
     model_config = ConfigDict(from_attributes=True) 
 
