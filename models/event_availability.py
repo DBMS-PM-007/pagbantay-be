@@ -17,10 +17,10 @@ class EventAvailabilityCreate(BaseModel):
 class EventAvailabilityResponse(BaseModel):
     availability_id: str
     event_id: str
-    event: Optional[EventResponse] = None
     user_id: str
     station_assignment: str
     availability: AvailabilityEnum
+    event: Optional[EventResponse] = None
 
     model_config = ConfigDict(from_attributes=True)
 
