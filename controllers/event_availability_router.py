@@ -24,8 +24,8 @@ def get_event_availabilities(
 @event_availability_router.put("/{event_id}", response_model=EventAvailabilityResponse)
 def update_event_availability(
     event_id: str, 
-    user_id: str = Query(...),
     availability: EventAvailabilityUpdate,
+    user_id: str = Query(...),
     db: Session = Depends(get_db)
 ):
     uc = EventAvailabilityUseCase(db)

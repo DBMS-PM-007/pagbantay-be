@@ -11,21 +11,18 @@ class AvailabilityEnum(str, Enum):
 class EventAvailabilityCreate(BaseModel):
     event_id: str
     user_id: str
-    station_assignment: str
     availability: AvailabilityEnum
 
 class EventAvailabilityResponse(BaseModel):
     availability_id: str
     event_id: str
     user_id: str
-    station_assignment: str
     availability: AvailabilityEnum
     event: Optional[EventResponse] = None
 
     model_config = ConfigDict(from_attributes=True)
 
 class EventAvailabilityUpdate(BaseModel):
-    station_assignment: str
     availability: AvailabilityEnum
     
     model_config = ConfigDict(from_attributes=True) 
