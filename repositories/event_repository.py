@@ -32,3 +32,7 @@ class EventRepository:
         self.db.refresh(event)
 
         return event
+
+    def delete_event(self, event: Event):
+        self.db.delete(event)
+        self.db.commit()

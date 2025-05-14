@@ -34,3 +34,5 @@ class EventUpdate(BaseModel):
 
     model_config = ConfigDict(from_attributes=True) 
 
+class EventDelete(BaseModel):
+    message: str

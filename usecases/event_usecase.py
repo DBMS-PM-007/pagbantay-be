@@ -1,4 +1,4 @@
-from models.event import EventCreate, EventResponse, EventUpdate
+from models.event import EventCreate, EventResponse, EventUpdate, EventDelete
 from repositories.event_repository import EventRepository
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
@@ -30,3 +30,12 @@ class EventUseCase:
 
         updated_event = self.event_repo.update_event(event, event_data)
         return EventResponse.model_validate(updated_event)
+
+    def delete_event(self, event_id: str) -> EventDelete:
+        event = self.event_repo.get_event_by_id(event_id)
+        if not event:
+            raise HTTPException(status_code=404, detail="Event not found")
+
+        self.event_repo.delete_event(event)
+        return EventDelete(message="Event deleted successfully")
+

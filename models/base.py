@@ -37,7 +37,7 @@ class VolunteerAssignment(Base):
     __tablename__ = "Volunteer Assignment"
 
     assignment_id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
-    event_id = Column(String, ForeignKey("Event.event_id"), nullable=False)
+    event_id = Column(String, ForeignKey("Event.event_id", ondelete="CASCADE"), nullable=False)
     user_id = Column(String, ForeignKey("User.user_id"), nullable=False)
 
     # Relationships
@@ -59,7 +59,11 @@ class Event(Base):
     
     # Relationships
     admin_access = relationship("AdminAccess", back_populates="event")
-    availability = relationship("Availability", back_populates="event")
+    availability = relationship(
+        "Availability", 
+        back_populates="event",
+        cascade="all, delete-orphan"
+    )
 
 # Availability Model
 class Availability(Base):
@@ -67,7 +71,7 @@ class Availability(Base):
 
     availability_id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
     user_id = Column(String, ForeignKey("User.user_id"), nullable=False)
-    event_id = Column(String, ForeignKey("Event.event_id"), nullable=False)
+    event_id = Column(String, ForeignKey("Event.event_id", ondelete="CASCADE"), nullable=False)
     availability = Column(String, nullable=False)
 
     # Relationships
