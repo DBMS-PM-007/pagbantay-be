@@ -22,7 +22,7 @@ class EventAvailabilityRepository:
 
         if not event_availability:
             return None
-
+          
         event_availability.availability = availability_data.availability
 
         self.db.commit()
