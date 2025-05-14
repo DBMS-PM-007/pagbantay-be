@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
-from models.event import EventCreate, EventResponse, EventUpdate 
+from models.event import EventCreate, EventResponse, EventUpdate, EventDelete
 from usecases.event_usecase import EventUseCase
 from db.database import get_db
 
@@ -24,3 +24,7 @@ def get_event_by_id(event_id: str, usecase: EventUseCase = Depends(get_event_use
 @event_router.put("/{event_id}", response_model=EventResponse)
 def update_event(event_id: str, event_data: EventUpdate, usecase: EventUseCase = Depends(get_event_usecase)):
     return usecase.update_event(event_id, event_data)
+
+@event_router.delete("/{event_id}", response_model=EventDelete)
+def delete_event(event_id: str, usecase: EventUseCase = Depends(get_event_usecase)):
+    return usecase.delete_event(event_id)
