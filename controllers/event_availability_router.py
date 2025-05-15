@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
 from models.event_availability import EventAvailabilityCreate, EventAvailabilityResponse, EventAvailabilityUpdate
 from db.database import get_db
@@ -21,11 +21,11 @@ def get_event_availabilities(
     uc = EventAvailabilityUseCase(db)
     return uc.get_event_availability()
 
-@event_availability_router.put("/{user_id}/{event_id}", response_model=EventAvailabilityResponse)
+@event_availability_router.put("/{event_id}", response_model=EventAvailabilityResponse)
 def update_event_availability(
-    user_id: str,
-    event_id: str,
+    event_id: str, 
     availability: EventAvailabilityUpdate,
+    user_id: str = Query(...),
     db: Session = Depends(get_db)
 ):
     uc = EventAvailabilityUseCase(db)

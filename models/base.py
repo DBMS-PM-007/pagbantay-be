@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Boolean, ForeignKey, DateTime
+from sqlalchemy import Column, String, Boolean, ForeignKey, Date, DateTime
 from sqlalchemy.orm import relationship, declarative_base
 import uuid
 
@@ -39,10 +39,6 @@ class VolunteerAssignment(Base):
     assignment_id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
     event_id = Column(String, ForeignKey("Event.event_id"), nullable=False)
     user_id = Column(String, ForeignKey("User.user_id"), nullable=False)
-    station = Column(String, nullable=False)
-    shift_start_time = Column(DateTime, nullable=False)
-    shift_end_time = Column(DateTime, nullable=False)
-    availability_status = Column(String, nullable=False)
 
     # Relationships
     user = relationship("User", back_populates="assignments")
@@ -55,10 +51,12 @@ class Event(Base):
     event_id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
     admin_id = Column(String, ForeignKey("Admin Access.admin_id"), nullable=False)
     event_name = Column(String, nullable=False)
-    date = Column(DateTime, nullable=False)
-    location = Column(String, nullable=False)
     description = Column(String, nullable=True)
-
+    location = Column(String, nullable=False)
+    date = Column(Date, nullable=False)
+    start_time = Column(DateTime, nullable=False)
+    end_time = Column(DateTime, nullable=False)
+    
     # Relationships
     admin_access = relationship("AdminAccess", back_populates="event")
     availability = relationship("Availability", back_populates="event")
@@ -70,7 +68,6 @@ class Availability(Base):
     availability_id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
     user_id = Column(String, ForeignKey("User.user_id"), nullable=False)
     event_id = Column(String, ForeignKey("Event.event_id"), nullable=False)
-    station_assignment = Column(String, nullable=False)
     availability = Column(String, nullable=False)
 
     # Relationships

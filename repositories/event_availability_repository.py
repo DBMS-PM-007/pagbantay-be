@@ -22,8 +22,7 @@ class EventAvailabilityRepository:
 
         if not event_availability:
             return None
-
-        event_availability.station_assignment = availability_data.station_assignment
+          
         event_availability.availability = availability_data.availability
 
         self.db.commit()
