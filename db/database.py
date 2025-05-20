@@ -1,10 +1,8 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from utils.utils import Utils
 import os
 
-#DATABASE_URL = os.getenv('DATABASE_URL')
-DATABASE_URL = Utils.get_url("/pagbantay-be/database/url")
+DATABASE_URL = os.getenv('DATABASE_URL') 
 
 if DATABASE_URL is None:
     raise ValueError("DATABASE_URL environment variable is not set!")
